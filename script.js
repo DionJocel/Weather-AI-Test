@@ -1,7 +1,7 @@
 class WeatherAI {
     constructor() {
         this.apiKey = 'bcd89c7f8d14ad6ddf578432e489e760';
-        this.currentWeatherType = 'today'; // Default to today
+        this.currentWeatherType = 'today'; // Default neto today
         this.elements = {
             location: document.getElementById('location'),
             date: document.getElementById('date'),
@@ -87,7 +87,7 @@ class WeatherAI {
     processVoiceCommand(transcript) {
         this.addChatMessage(transcript, 'user');
 
-        // Determine if user wants today or tomorrow's weather
+        // Determine kung gusto ni user weather today or tomorrow
         if (transcript.includes('tomorrow')) {
             this.currentWeatherType = 'tomorrow';
             this.addChatMessage("I'll get tomorrow's weather forecast for you mah g!", 'ai');
@@ -95,7 +95,6 @@ class WeatherAI {
             this.currentWeatherType = 'today';
             this.addChatMessage("I'll get today's weather for you mah g!", 'ai');
         } else {
-            // Default to today but ask for clarification
             this.currentWeatherType = 'today';
             this.addChatMessage("I'll get today's weather for you mah g! Say 'tomorrow' if you want tomorrow's forecast.", 'ai');
         }
@@ -137,7 +136,6 @@ class WeatherAI {
             console.log('Fetching weather for:', lat, lon);
 
             if (this.currentWeatherType === 'today') {
-                // Use current weather API for today
                 const response = await fetch(
                     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.apiKey}&units=metric`
                 );
@@ -150,7 +148,6 @@ class WeatherAI {
                 console.log('Today Weather API response:', data);
                 this.processTodayWeatherData(data);
             } else {
-                // Use forecast API for tomorrow
                 const response = await fetch(
                     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${this.apiKey}&units=metric`
                 );
@@ -187,7 +184,6 @@ class WeatherAI {
             weatherType: 'today'
         };
 
-        // Estimate precipitation for today
         if (weatherInfo.condition === 'Rain' || weatherInfo.condition === 'Drizzle') {
             weatherInfo.precipitation = 80;
         } else if (weatherInfo.condition === 'Thunderstorm') {
@@ -203,9 +199,8 @@ class WeatherAI {
         // Get tomorrow's date
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
-        tomorrow.setHours(12, 0, 0, 0); // Use noon for forecast
+        tomorrow.setHours(12, 0, 0, 0); // noon
 
-        // Find the forecast closest to tomorrow noon
         let closestForecast = data.list[0];
         let closestDiff = Math.abs(new Date(data.list[0].dt * 1000) - tomorrow);
 
