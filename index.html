@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Weather AI Test</title>
+</head>
+<body>
+    <div class="weather-container">
+        <div class="error" id="errorMessage"></div>
+        
+        <div class="weather-icon" id="weatherIcon">⛅</div>
+        <div class="location" id="location">Detecting your location...</div>
+        <div class="date" id="date"></div>
+        
+        <div class="temperature" id="temperature">--°C</div>
+        <div class="description" id="description">Loading weather data...</div>
+        
+        <div class="weather-details">
+            <div class="detail-item">
+                <div class="detail-label">Feels Like</div>
+                <div class="detail-value" id="feelsLike">--°C</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Humidity</div>
+                <div class="detail-value" id="humidity">--%</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Wind Speed</div>
+                <div class="detail-value" id="windSpeed">-- km/h</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Precipitation</div>
+                <div class="detail-value" id="precipitation">--%</div>
+            </div>
+        </div>
+
+        <button class="voice-button" id="voiceButton">
+            🎤 Ask "What's the weather tomorrow?"
+        </button>
+
+        <div class="chat-interface" id="chatInterface">
+            <div class="chat-message ai-message">
+                Hi! I am your Weather AI mah g. Click the microphone and ask about tomorrow's weather, or I'll automatically detect your location and show you the forecast. Ingat palagi mah g!
+            </div>
+        </div>
+
+        <div class="loading" id="loading">Getting weather data...</div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new WeatherAI();
+        });
+    </script>
+</body>
+</html>
